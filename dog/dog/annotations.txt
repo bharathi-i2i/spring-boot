@@ -1,0 +1,20 @@
+Annotations:
+
+@SpringBootApplication - it works all @Configuration @ComponentScan @EnableAutoConfiguration.
+
+@Configuration - If we give this annotation in top of any class, then the class will provide one or more @Bean methods, 
+                 also the spring container generate the bean definitions and service requests for those beans at runtime. 
+
+@ComponentScan - with no args - then it tells to spring container to scan the @Component class file in current package
+                                and its all sub packages.
+                 with path args - then it tells to spring container to scan the @Component class file in specified argumented package.
+
+@EnableAutoConfiguration - it tells to spring container to auto configure the jar dependencies mentioned in pom file.
+                           For example, if you add spring-boot-starter-web dependency in your classpath, it automatically configures Tomcat and Spring MVC.
+
+@RestController - it is the combination of @Controller and @Responsebody. It returns the response with object of json or xml format.
+
+@Controller - is to create a Map of the model object and find a view. It handle requests coming from client then redirects the client to a logical view name.
+
+@ResponseBody - it tells a controller that the object returned is automatically serialized into JSON and passed back into the HttpResponse object.
+
