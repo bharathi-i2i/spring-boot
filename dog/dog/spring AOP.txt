@@ -1,0 +1,69 @@
+Spring AOP (Aspect Oriented Programming) :
+
+Usually Java application is developed with multiple layers, They are 
+
+	1.Web Layer - it exposes services using the REST or web application
+
+	2.Business Layer - it implements the business logic in the application
+
+	3.Data Layer - it implements the persistance logic in the application
+
+The responsibility of each layer is different but some common aspects are applied in all layers they are logging, security, validation, caching ete.
+
+these are called cross-cutting concerns.
+
+Applying these aspects in all separate files is difficult to maintain the code. To overcome this problem we go for AOP concepts.
+
+
+AOP is the programming pattern, which will add some additional behaviour in existing code without modify the code itself. 
+
+Using AOP, we define common functionality in one place. We are free to define how and where this functionality is applied.
+
+One of the benefits of AOP is, the logic of each concern is now in one place instead of scattered in all over the codebase.
+
+Advice:
+
+	The Aspects has the responsibility that is to be implemented in application is called advice.
+
+Benefits of AOP :
+
+	1.It is implemented in pure Java.
+	2.There is no requirement for a special compilation process.
+	3.It supports only method execution Join points.
+	4.Only run time weaving is available.
+	5.Two types of AOP proxy is available: JDK dynamic proxy and CGLIB proxy.
+
+Core Concepts of AOP :
+
+	1.Aspects : An aspect is a module that encapsulates advice and pointcuts and provides cross-cutting An application can have any number of aspects.
+		    We can implement an aspect using regular class annotated with @Aspect annotation.
+        
+	2.Pointcut : A Pointcut is an expression that selects one or more join points where advice is executed.
+		     We can define pointcuts using expressions or patterns.
+ 		     It uses different kinds of expressions that matched with the join points.
+                     In Spring Framework, AspectJ pointcut expression language is used.
+
+	3.Join Point: A Join Point is a point in the application where we apply an AOP aspect.
+		      it is a specific execution instance of an advice.
+                      Join Point is method execution, changing object variable value, exception handling etc.
+
+	4.Advice : An Adice is an action taken before or after execution of join points.
+		    There are five types of advices in the Spring AOP framework: before, after, after-returning, after-throwing, and around advice.
+
+	5.Target Object : An object on which advices are applied are called target object.
+			  Target objects are always a proxied It means a subclass is created at run time in which the target method is overridden.
+
+	6.Weaving : It is the process of linking aspects in other application types.
+		    We can perform weaving at run time, load time, and compile time.
+
+Types of AOP advices:
+
+	1.Before : An advice executes before a joint point is calles before advice. we can use @Before annotation to mark an advice as before advice.
+
+	2.After : An advice executes after a joint point is called after advice. we can use @After annotation to mark an advice as after advice.
+
+	3.Around : An advice executes before and after a joint point is called around advice. @Around
+
+	4.AfterThrowing : An Advice executes when a joint point throws an execution. @AfterThrowing
+
+	5.AfterReturning : An Advice executes when a joint point executes successful and returns true. @AfterReturning
