@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pet.dog.aspect.TrackEntity;
 import com.pet.dog.entity.Dog;
 import com.pet.dog.repository.DogRepository;
 
@@ -13,15 +14,14 @@ import com.pet.dog.repository.DogRepository;
 @Service
 public class DogService {
 	
-DogRepository dogRepository;
-
-public DogService() {}
+private final DogRepository dogRepository;
 
 @Autowired
 public DogService(DogRepository dogRepository) {
 	this.dogRepository = dogRepository;
 }
 
+@TrackEntity
 public void saveOrUpdate(Dog dog) {
 	dogRepository.save(dog);
 }

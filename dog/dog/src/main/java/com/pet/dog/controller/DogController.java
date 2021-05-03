@@ -17,10 +17,8 @@ import com.pet.dog.service.DogService;
 @RestController
 public class DogController {
 
-	DogService dogService;
-	
-	public DogController() {}
-	
+	private final DogService dogService;
+		
 	@Autowired
 	public DogController(DogService dogService) {
 		this.dogService = dogService;
