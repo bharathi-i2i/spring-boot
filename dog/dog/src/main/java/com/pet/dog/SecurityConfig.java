@@ -2,12 +2,16 @@ package com.pet.dog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+
 
 
 @Configuration
+@Order(SecurityProperties.BASIC_AUTH_ORDER - 10)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Override
@@ -15,7 +19,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     {
         http
          .csrf().disable()
-         .authorizeRequests().anyRequest().authenticated()
+         .antMatcher("/**")
+         .authorizeRequests()
+         .antMatchers("/dog").hasRole("ADMIN")
+         .antMatchers("/dog/**").hasRole("ADMIN")
+         .antMatchers("/dogs").hasRole("USER")
+         .anyRequest().authenticated()
          .and()
          .httpBasic();
     }
@@ -25,8 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception 
     {
         auth.inMemoryAuthentication()
+            .withUser("bharathi")
+            .password("{noop}password")
+            .roles("USER")
+            .and()
             .withUser("admin")
             .password("{noop}password")
-            .roles("USER");
+            .roles("ADMIN");
     }
 }
