@@ -7,6 +7,7 @@ import javax.jms.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,16 @@ public class DogController {
 //        System.out.println("Message has been put to queue by sender");
 //    }
 	
+    /**
+     * 
+     * @param authentication
+     * @return
+     */
+	@GetMapping("/username")
+    public String currentUserName(Authentication authentication) {
+        return authentication.getName();
+    }
+    
 	/**
 	 * save the dog by invoking dogService method.
 	 * 
