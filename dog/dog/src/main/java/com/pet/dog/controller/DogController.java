@@ -7,6 +7,7 @@ import javax.jms.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import com.pet.dog.entity.Dog;
 import com.pet.dog.service.DogService;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 public class DogController {
 
 	private final DogService dogService;
@@ -61,7 +63,7 @@ public class DogController {
 	 * @throws JsonProcessingException 
 	 */
 	@PostMapping("/dog")
-	private int saveDog(@RequestBody Dog dog) throws JsonProcessingException {
+	public int saveDog(@RequestBody Dog dog) throws JsonProcessingException {
 		dogService.saveOrUpdate(dog);
 		ObjectMapper mapper = new ObjectMapper();
 		String dogAsJson = mapper.writeValueAsString(dog);
@@ -76,7 +78,7 @@ public class DogController {
 	 * @return List<Dog> - list of dogs saved.
 	 */
 	@GetMapping("/dogs")
-	private List<Dog> getAllDogs(){
+	public List<Dog> getAllDogs(){
 		return dogService.getAllDogs();
 	}
 	
@@ -87,7 +89,7 @@ public class DogController {
 	 * @return Dog - which is the dog we get.
 	 */
 	@GetMapping("/dog/{dogid}")
-	private Dog getDogById(@PathVariable("dogid") int dogid) {
+	public Dog getDogById(@PathVariable("dogid") int dogid) {
 		return dogService.getDogById(dogid);
 	}
 	
@@ -98,7 +100,7 @@ public class DogController {
 	 * @return Dog - which is updated dog.
 	 */
 	@PutMapping("/dog")
-	private Dog updateDog(@RequestBody Dog dog) {
+	public Dog updateDog(@RequestBody Dog dog) {
 		dogService.saveOrUpdate(dog);
 		return dog;
 	}
@@ -109,7 +111,7 @@ public class DogController {
 	 * @param id - which is dog unique id.
 	 */
 	@DeleteMapping("/dog/{dogid}")
-	private void deleteById(@PathVariable ("dogid") int id) {
+	public void deleteById(@PathVariable ("dogid") int id) {
 		dogService.deleteById(id);
 	}
 }
