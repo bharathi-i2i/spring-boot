@@ -6,6 +6,7 @@ import javax.jms.Queue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.http.MediaType;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -88,7 +89,7 @@ public class DogController {
 	 * @param dogid -  which is dog unique id.
 	 * @return Dog - which is the dog we get.
 	 */
-	@GetMapping("/dog/{dogid}")
+	@GetMapping(value = "/dog/{dogid}" , produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Dog getDogById(@PathVariable("dogid") int dogid) {
 		return dogService.getDogById(dogid);
 	}
